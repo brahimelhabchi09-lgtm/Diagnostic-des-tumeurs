@@ -38,6 +38,40 @@ Ou :
 uv sync
 ```
 
+## Exécution avec Docker Compose
+
+Docker Compose exécute le pipeline dans un conteneur Python 3.11. Les images
+du dossier `Data/` sont montées en lecture seule et les rapports générés dans
+`reports/` restent accessibles sur l'hôte. Ces chemins peuvent être remplacés
+par `DATASET_HOST_DIR` et `REPORTS_HOST_DIR` (chemins absolus recommandés).
+
+```powershell
+docker compose up --build
+```
+
+Le pipeline est un traitement batch : le conteneur s'arrête normalement après
+la génération des rapports. Il n'expose pas de port et le projet ne déclare ni
+base de données ni autre service réseau. Compose crée son réseau par défaut,
+mais aucun échange interservice n'est nécessaire.
+
+Commandes utiles :
+
+```powershell
+docker compose ps -a
+docker compose logs -f pipeline
+docker compose stop pipeline
+docker compose restart pipeline
+docker compose down
+```
+
+Pour utiliser un dataset ou un dossier de rapports différent dans PowerShell :
+
+```powershell
+$env:DATASET_HOST_DIR = "C:\chemin\vers\images"
+$env:REPORTS_HOST_DIR = "C:\chemin\vers\rapports"
+docker compose up --build
+```
+
 ## Préparation des données
 
 Cette étape charge et valide les images, explore les classes, produit les visualisations et sépare le dataset en **train 70 % / validation 15 % / test 15 %** (`random_state=42`, stratification par classe). Si des identifiants patient sont présents dans les noms de fichiers, toutes les images d'un même patient restent dans un seul ensemble.

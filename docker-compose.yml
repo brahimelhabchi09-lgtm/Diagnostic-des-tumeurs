@@ -1,0 +1,20 @@
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATASET_DIR: /app/Data
+      REPORTS_DIR: /app/reports
+      PYTHONUNBUFFERED: "1"
+      TF_CPP_MIN_LOG_LEVEL: "2"
+    volumes:
+      - type: bind
+        source: ${DATASET_HOST_DIR:-./Data}
+        target: /app/Data
+        read_only: true
+      - type: bind
+        source: ${REPORTS_HOST_DIR:-./reports}
+        target: /app/reports
+    init: true
+    restart: "no"
