@@ -1,0 +1,5 @@
+label,n_images,n_patients,percentage
+glioma,1621,1621,23.08
+meningioma,1645,1645,23.42
+notumor,2000,2000,28.48
+pituitary,1757,1757,25.02

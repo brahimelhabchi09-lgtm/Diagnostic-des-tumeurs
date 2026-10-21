@@ -1,0 +1,4 @@
+split,n_images,percentage,target_percentage,n_glioma,n_meningioma,n_notumor,n_pituitary
+train,4916,70.0,70.0,1135,1151,1400,1230
+validation,1053,14.99,15.0,243,247,300,263
+test,1054,15.01,15.0,243,247,300,264
